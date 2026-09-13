@@ -1,0 +1,87 @@
+<center>
+
+## TUGAS KOMPUTASI STATISTIKA
+
+</center>
+
+*Nama : Aldiansah*  
+*Kelas: 3B*  
+*Nim  : 3338250040*
+
+#### *Mengimport Package yang dibutuhkan*
+```{r}
+library(dplyr)
+library(sqldf)
+```
+
+#### *Menampilkan kolom sepal length*
+```{r}
+iris$Sepal.Length
+```
+
+#### *Membuat kolom turunan dari sepal width*
+```{r}
+iris$turunan<-ifelse(iris$Sepal.Width>3,"Besar","Kecil")
+head(iris)
+```
+
+#### *Mengubah Kolom turunan menjadi sepal*
+```{r}
+iris<-iris %>%
+  rename(sepal=turunan)
+```
+
+```{r}
+head(iris)
+```
+
+#### *Mengambil sepcies virginica dengan sepal Besar*
+
+```{r}
+virginica_besar<-sqldf("
+                       SELECT sepal,species 
+                       FROM iris 
+                       WHERE sepal = 'Besar' AND species = 'virginica'
+                       ORDER BY sepal DESC")
+
+```
+```{r}
+virginica_besar
+```
+
+#### *menghitung banyaknya factor atau level pada kolom species*
+```{r}
+length(levels(iris$Species))
+```
+
+#### *Membuat data frame hanya sepcies virginica saja*
+```{r}
+virginica<-filter(iris,Species=="virginica")
+print(virginica)
+```
+#### *Membuat data frame hanya sepcies setosa saja*
+```{r}
+setosa<-filter(iris,Species=="setosa")
+print(setosa)
+```
+#### *Membuat data frame hanya sepcies versicolor saja*
+```{r}
+versicolor<-filter(iris,Species=="versicolor")
+print(versicolor)
+```
+
+#### *mengurutkan data species virginica berdasarkan sepal width dengan ascending*
+```{r}
+virginica_terurut <- arrange(virginica, Sepal.Width)
+print(virginica_terurut)
+```
+#### *mengurutkan data species setosa berdasarkan sepal width dengan ascending*
+```{r}
+setosa_terurut <- arrange(setosa, Sepal.Width)
+print(setosa_terurut)
+```
+#### *mengurutkan data species setosa berdasarkan versicolor width dengan ascending*
+```{r}
+versicolor_terurut <- arrange(versicolor, Sepal.Width)
+print(versicolor_terurut)
+```
